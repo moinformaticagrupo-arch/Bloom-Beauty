@@ -16,18 +16,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const backToTop = document.querySelector(".back-to-top");
 
-    const galleryItems = document.querySelectorAll(".gallery-item");
-    const galleryFilters = document.querySelectorAll(".gallery-filter");
+    const galleryItems =
+        document.querySelectorAll(".gallery-item");
 
-    const lightbox = document.querySelector(".lightbox");
-    const lightboxImage = document.querySelector(".lightbox-content img");
-    const lightboxCaption = document.querySelector(".lightbox-caption");
+    const galleryFilters =
+        document.querySelectorAll(".gallery-filter");
 
-    const lightboxClose = document.querySelector(".lightbox-close");
-    const lightboxPrev = document.querySelector(".lightbox-prev");
-    const lightboxNext = document.querySelector(".lightbox-next");
+    const lightbox =
+        document.querySelector(".lightbox");
 
-    const bookingForm = document.querySelector(".booking-form");
+    const lightboxImage =
+        document.querySelector(".lightbox-content img");
+
+    const lightboxCaption =
+        document.querySelector(".lightbox-caption");
+
+    const lightboxClose =
+        document.querySelector(".lightbox-close");
+
+    const lightboxPrev =
+        document.querySelector(".lightbox-prev");
+
+    const lightboxNext =
+        document.querySelector(".lightbox-next");
+
+    const bookingForm =
+        document.querySelector(".booking-form");
 
 
     /* ======================================================
@@ -39,13 +53,22 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!header) return;
 
         if (window.scrollY > 50) {
+
             header.classList.add("scrolled");
+
         } else {
+
             header.classList.remove("scrolled");
+
         }
+
     }
 
-    window.addEventListener("scroll", updateHeader);
+
+    window.addEventListener(
+        "scroll",
+        updateHeader
+    );
 
     updateHeader();
 
@@ -56,95 +79,174 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (menuToggle && navbar) {
 
-        menuToggle.addEventListener("click", () => {
+        menuToggle.addEventListener(
+            "click",
+            () => {
 
-            navbar.classList.toggle("active");
+                navbar.classList.toggle(
+                    "active"
+                );
 
-            document.body.classList.toggle("no-scroll");
-
-            const icon = menuToggle.querySelector("i");
-
-            if (icon) {
-
-                if (navbar.classList.contains("active")) {
-
-                    icon.classList.remove("fa-bars");
-                    icon.classList.add("fa-xmark");
-
-                } else {
-
-                    icon.classList.remove("fa-xmark");
-                    icon.classList.add("fa-bars");
-                }
-            }
-        });
+                document.body.classList.toggle(
+                    "no-scroll"
+                );
 
 
-        /* Cerrar menú al tocar un enlace */
+                const icon =
+                    menuToggle.querySelector("i");
 
-        const navLinks = navbar.querySelectorAll("a");
-
-        navLinks.forEach(link => {
-
-            link.addEventListener("click", () => {
-
-                navbar.classList.remove("active");
-
-                document.body.classList.remove("no-scroll");
-
-                const icon = menuToggle.querySelector("i");
 
                 if (icon) {
 
-                    icon.classList.remove("fa-xmark");
-                    icon.classList.add("fa-bars");
+                    if (
+                        navbar.classList.contains(
+                            "active"
+                        )
+                    ) {
+
+                        icon.classList.remove(
+                            "fa-bars"
+                        );
+
+                        icon.classList.add(
+                            "fa-xmark"
+                        );
+
+                    } else {
+
+                        icon.classList.remove(
+                            "fa-xmark"
+                        );
+
+                        icon.classList.add(
+                            "fa-bars"
+                        );
+
+                    }
+
                 }
+
+            }
+        );
+
+
+        navbar
+            .querySelectorAll("a")
+            .forEach(link => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+                        navbar.classList.remove(
+                            "active"
+                        );
+
+                        document.body.classList.remove(
+                            "no-scroll"
+                        );
+
+
+                        const icon =
+                            menuToggle.querySelector(
+                                "i"
+                            );
+
+
+                        if (icon) {
+
+                            icon.classList.remove(
+                                "fa-xmark"
+                            );
+
+                            icon.classList.add(
+                                "fa-bars"
+                            );
+
+                        }
+
+                    }
+                );
+
             });
 
-        });
     }
 
 
     /* ======================================================
-       ENLACES DEL NAVBAR
-       MARCAR SECCIÓN ACTIVA
+       NAVBAR - SECCIÓN ACTIVA
     ====================================================== */
 
-    const sections = document.querySelectorAll("section[id]");
-    const navLinks = document.querySelectorAll(".navbar a[href^='#']");
+    const sections =
+        document.querySelectorAll(
+            "section[id]"
+        );
+
+    const navLinks =
+        document.querySelectorAll(
+            ".navbar a[href^='#']"
+        );
+
 
     function updateActiveLink() {
 
         let currentSection = "";
 
+
         sections.forEach(section => {
 
-            const sectionTop = section.offsetTop - 150;
-            const sectionHeight = section.offsetHeight;
+            const sectionTop =
+                section.offsetTop - 150;
+
+            const sectionHeight =
+                section.offsetHeight;
+
 
             if (
                 window.scrollY >= sectionTop &&
-                window.scrollY < sectionTop + sectionHeight
+                window.scrollY <
+                    sectionTop + sectionHeight
             ) {
-                currentSection = section.getAttribute("id");
+
+                currentSection =
+                    section.getAttribute("id");
+
             }
 
         });
+
 
         navLinks.forEach(link => {
 
-            link.classList.remove("active");
+            link.classList.remove(
+                "active"
+            );
 
-            const href = link.getAttribute("href");
 
-            if (href === `#${currentSection}`) {
-                link.classList.add("active");
+            const href =
+                link.getAttribute("href");
+
+
+            if (
+                href ===
+                `#${currentSection}`
+            ) {
+
+                link.classList.add(
+                    "active"
+                );
+
             }
 
         });
+
     }
 
-    window.addEventListener("scroll", updateActiveLink);
+
+    window.addEventListener(
+        "scroll",
+        updateActiveLink
+    );
 
     updateActiveLink();
 
@@ -155,57 +257,92 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let visibleGalleryItems = [];
 
+
     function updateVisibleGalleryItems() {
 
-        visibleGalleryItems = Array.from(galleryItems)
-            .filter(item => {
+        visibleGalleryItems =
+            Array.from(galleryItems)
+                .filter(item => {
 
-                return window.getComputedStyle(item).display !== "none";
+                    return (
+                        window.getComputedStyle(
+                            item
+                        ).display !== "none"
+                    );
 
-            });
+                });
+
     }
 
 
     galleryFilters.forEach(filter => {
 
-        filter.addEventListener("click", () => {
+        filter.addEventListener(
+            "click",
+            () => {
 
-            /* Quitar active */
+                galleryFilters.forEach(
+                    button => {
 
-            galleryFilters.forEach(button => {
-                button.classList.remove("active");
-            });
+                        button.classList.remove(
+                            "active"
+                        );
 
-            /* Activar botón */
+                    }
+                );
 
-            filter.classList.add("active");
 
-            const category = filter.dataset.filter;
+                filter.classList.add(
+                    "active"
+                );
 
-            galleryItems.forEach(item => {
 
-                const itemCategory = item.dataset.category;
+                const category =
+                    filter.dataset.filter;
 
-                if (
-                    category === "all" ||
-                    category === "*" ||
-                    itemCategory === category
-                ) {
 
-                    item.classList.remove("hidden");
+                galleryItems.forEach(
+                    item => {
 
-                } else {
+                        const itemCategory =
+                            item.dataset.category;
 
-                    item.classList.add("hidden");
 
-                }
+                        if (
+                            category === "all" ||
+                            category === "*" ||
+                            itemCategory === category
+                        ) {
 
-            });
+                            item.classList.remove(
+                                "hidden"
+                            );
 
-            updateVisibleGalleryItems();
-        });
+                            item.style.display =
+                                "";
+
+                        } else {
+
+                            item.classList.add(
+                                "hidden"
+                            );
+
+                            item.style.display =
+                                "none";
+
+                        }
+
+                    }
+                );
+
+
+                updateVisibleGalleryItems();
+
+            }
+        );
 
     });
+
 
     updateVisibleGalleryItems();
 
@@ -217,27 +354,70 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentImageIndex = 0;
 
 
+    function escapeHTML(texto) {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.textContent =
+            texto || "";
+
+        return div.innerHTML;
+
+    }
+
+
     function getImageData(item) {
 
         if (!item) return null;
 
-        const image = item.querySelector("img");
+
+        const image =
+            item.querySelector("img");
+
 
         if (!image) return null;
 
-        const titleElement = item.querySelector(".gallery-overlay h3");
-        const categoryElement = item.querySelector(".gallery-overlay span");
+
+        const titleElement =
+            item.querySelector(
+                ".gallery-overlay h3"
+            );
+
+
+        const categoryElement =
+            item.querySelector(
+                ".gallery-overlay span"
+            );
+
 
         return {
-            src: image.getAttribute("src"),
-            alt: image.getAttribute("alt") || "Bloom Beauty",
-            title: titleElement
-                ? titleElement.textContent.trim()
-                : "",
-            category: categoryElement
-                ? categoryElement.textContent.trim()
-                : ""
+
+            src:
+                image.getAttribute(
+                    "src"
+                ),
+
+            alt:
+                image.getAttribute(
+                    "alt"
+                ) ||
+                "Bloom Beauty",
+
+            title:
+                titleElement
+                    ? titleElement.textContent.trim()
+                    : "",
+
+            category:
+                categoryElement
+                    ? categoryElement.textContent.trim()
+                    : ""
+
         };
+
     }
 
 
@@ -245,47 +425,98 @@ document.addEventListener("DOMContentLoaded", () => {
 
         updateVisibleGalleryItems();
 
-        if (!visibleGalleryItems.length) return;
+
+        if (
+            !visibleGalleryItems.length
+        ) {
+
+            return;
+
+        }
+
 
         if (index < 0) {
-            index = visibleGalleryItems.length - 1;
+
+            index =
+                visibleGalleryItems.length - 1;
+
         }
 
-        if (index >= visibleGalleryItems.length) {
+
+        if (
+            index >=
+            visibleGalleryItems.length
+        ) {
+
             index = 0;
+
         }
 
-        currentImageIndex = index;
 
-        const data = getImageData(
-            visibleGalleryItems[currentImageIndex]
-        );
+        currentImageIndex =
+            index;
 
-        if (!data || !lightbox || !lightboxImage) return;
 
-        lightboxImage.src = data.src;
-        lightboxImage.alt = data.alt;
+        const data =
+            getImageData(
+                visibleGalleryItems[
+                    currentImageIndex
+                ]
+            );
+
+
+        if (
+            !data ||
+            !lightbox ||
+            !lightboxImage
+        ) {
+
+            return;
+
+        }
+
+
+        lightboxImage.src =
+            data.src;
+
+        lightboxImage.alt =
+            data.alt;
+
 
         if (lightboxCaption) {
 
             lightboxCaption.innerHTML = `
+
                 ${
                     data.category
-                        ? `<span>${data.category}</span>`
+                        ? `<span>${escapeHTML(
+                            data.category
+                        )}</span>`
                         : ""
                 }
 
                 ${
                     data.title
-                        ? `<h3>${data.title}</h3>`
+                        ? `<h3>${escapeHTML(
+                            data.title
+                        )}</h3>`
                         : ""
                 }
+
             `;
+
         }
 
-        lightbox.classList.add("active");
 
-        document.body.classList.add("no-scroll");
+        lightbox.classList.add(
+            "active"
+        );
+
+
+        document.body.classList.add(
+            "no-scroll"
+        );
+
     }
 
 
@@ -293,22 +524,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!lightbox) return;
 
-        lightbox.classList.remove("active");
 
-        document.body.classList.remove("no-scroll");
+        lightbox.classList.remove(
+            "active"
+        );
 
-        /*
-         * Dejamos que la transición termine antes
-         * de limpiar la imagen.
-         */
+
+        document.body.classList.remove(
+            "no-scroll"
+        );
+
 
         setTimeout(() => {
 
             if (lightboxImage) {
-                lightboxImage.src = "";
+
+                lightboxImage.src =
+                    "";
+
             }
 
         }, 300);
+
     }
 
 
@@ -316,13 +553,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
         updateVisibleGalleryItems();
 
-        currentImageIndex--;
 
-        if (currentImageIndex < 0) {
-            currentImageIndex = visibleGalleryItems.length - 1;
+        if (
+            !visibleGalleryItems.length
+        ) {
+
+            return;
+
         }
 
-        openLightbox(currentImageIndex);
+
+        currentImageIndex--;
+
+
+        if (
+            currentImageIndex < 0
+        ) {
+
+            currentImageIndex =
+                visibleGalleryItems.length - 1;
+
+        }
+
+
+        openLightbox(
+            currentImageIndex
+        );
+
     }
 
 
@@ -330,13 +587,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
         updateVisibleGalleryItems();
 
-        currentImageIndex++;
 
-        if (currentImageIndex >= visibleGalleryItems.length) {
-            currentImageIndex = 0;
+        if (
+            !visibleGalleryItems.length
+        ) {
+
+            return;
+
         }
 
-        openLightbox(currentImageIndex);
+
+        currentImageIndex++;
+
+
+        if (
+            currentImageIndex >=
+            visibleGalleryItems.length
+        ) {
+
+            currentImageIndex = 0;
+
+        }
+
+
+        openLightbox(
+            currentImageIndex
+        );
+
     }
 
 
@@ -346,26 +623,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
     galleryItems.forEach(item => {
 
-        item.addEventListener("click", event => {
+        item.addEventListener(
+            "click",
+            event => {
 
-            /*
-             * Si se hizo click en un enlace dentro
-             * de la tarjeta, no abrir el Lightbox.
-             */
+                if (
+                    event.target.closest("a")
+                ) {
 
-            if (event.target.closest("a")) {
-                return;
+                    return;
+
+                }
+
+
+                updateVisibleGalleryItems();
+
+
+                const index =
+                    visibleGalleryItems.indexOf(
+                        item
+                    );
+
+
+                if (index !== -1) {
+
+                    openLightbox(
+                        index
+                    );
+
+                }
+
             }
-
-            updateVisibleGalleryItems();
-
-            const index = visibleGalleryItems.indexOf(item);
-
-            if (index !== -1) {
-                openLightbox(index);
-            }
-
-        });
+        );
 
     });
 
@@ -376,30 +665,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (lightboxClose) {
 
-        lightboxClose.addEventListener("click", closeLightbox);
+        lightboxClose.addEventListener(
+            "click",
+            closeLightbox
+        );
 
     }
 
 
-    /*
-     * Cerrar haciendo click en el fondo
-     */
-
     if (lightbox) {
 
-        lightbox.addEventListener("click", event => {
+        lightbox.addEventListener(
+            "click",
+            event => {
 
-            if (event.target === lightbox) {
-                closeLightbox();
+                if (
+                    event.target ===
+                    lightbox
+                ) {
+
+                    closeLightbox();
+
+                }
+
             }
-
-        });
+        );
 
     }
 
 
     /* ======================================================
-       FLECHAS DEL LIGHTBOX
+       FLECHAS LIGHTBOX
     ====================================================== */
 
     if (lightboxPrev) {
@@ -410,6 +706,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     }
+
 
     if (lightboxNext) {
 
@@ -425,70 +722,119 @@ document.addEventListener("DOMContentLoaded", () => {
        TECLADO
     ====================================================== */
 
-    document.addEventListener("keydown", event => {
+    document.addEventListener(
+        "keydown",
+        event => {
 
-        if (!lightbox || !lightbox.classList.contains("active")) {
-            return;
-        }
+            if (
+                !lightbox ||
+                !lightbox.classList.contains(
+                    "active"
+                )
+            ) {
 
-        if (event.key === "Escape") {
-
-            closeLightbox();
-
-        }
-
-        if (event.key === "ArrowLeft") {
-
-            showPreviousImage();
-
-        }
-
-        if (event.key === "ArrowRight") {
-
-            showNextImage();
-
-        }
-
-    });
-
-
-    /* ======================================================
-       SWIPE EN CELULAR
-    ====================================================== */
-
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    if (lightbox) {
-
-        lightbox.addEventListener("touchstart", event => {
-
-            touchStartX = event.changedTouches[0].screenX;
-
-        }, { passive: true });
-
-
-        lightbox.addEventListener("touchend", event => {
-
-            touchEndX = event.changedTouches[0].screenX;
-
-            const difference = touchEndX - touchStartX;
-
-            if (Math.abs(difference) < 50) {
                 return;
+
             }
 
-            if (difference > 0) {
+
+            if (
+                event.key ===
+                "Escape"
+            ) {
+
+                closeLightbox();
+
+            }
+
+
+            if (
+                event.key ===
+                "ArrowLeft"
+            ) {
 
                 showPreviousImage();
 
-            } else {
+            }
+
+
+            if (
+                event.key ===
+                "ArrowRight"
+            ) {
 
                 showNextImage();
 
             }
 
-        }, { passive: true });
+        }
+    );
+
+
+    /* ======================================================
+       SWIPE CELULAR
+    ====================================================== */
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+
+    if (lightbox) {
+
+        lightbox.addEventListener(
+            "touchstart",
+            event => {
+
+                touchStartX =
+                    event.changedTouches[0]
+                        .screenX;
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        lightbox.addEventListener(
+            "touchend",
+            event => {
+
+                touchEndX =
+                    event.changedTouches[0]
+                        .screenX;
+
+
+                const difference =
+                    touchEndX -
+                    touchStartX;
+
+
+                if (
+                    Math.abs(difference) <
+                    50
+                ) {
+
+                    return;
+
+                }
+
+
+                if (difference > 0) {
+
+                    showPreviousImage();
+
+                } else {
+
+                    showNextImage();
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
 
     }
 
@@ -501,78 +847,124 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!backToTop) return;
 
+
         if (window.scrollY > 500) {
 
-            backToTop.classList.add("show");
+            backToTop.classList.add(
+                "show"
+            );
 
         } else {
 
-            backToTop.classList.remove("show");
+            backToTop.classList.remove(
+                "show"
+            );
 
         }
+
     }
 
-    window.addEventListener("scroll", updateBackToTop);
+
+    window.addEventListener(
+        "scroll",
+        updateBackToTop
+    );
+
 
     updateBackToTop();
 
 
     if (backToTop) {
 
-        backToTop.addEventListener("click", () => {
+        backToTop.addEventListener(
+            "click",
+            () => {
 
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+                window.scrollTo({
 
-        });
+                    top: 0,
+
+                    behavior: "smooth"
+
+                });
+
+            }
+        );
 
     }
 
 
     /* ======================================================
-       ANIMACIÓN DE ELEMENTOS AL HACER SCROLL
+       ANIMACIONES
     ====================================================== */
 
-    const animatedElements = document.querySelectorAll(
-        ".service-card, .review-card, .contact-card, .about-image"
-    );
-
-    if ("IntersectionObserver" in window) {
-
-        const observer = new IntersectionObserver(
-            entries => {
-
-                entries.forEach(entry => {
-
-                    if (entry.isIntersecting) {
-
-                        entry.target.style.opacity = "1";
-                        entry.target.style.transform = "translateY(0)";
-
-                        observer.unobserve(entry.target);
-                    }
-
-                });
-
-            },
-            {
-                threshold: 0.12
-            }
+    const animatedElements =
+        document.querySelectorAll(
+            ".service-card, .review-card, .contact-card, .about-image"
         );
 
 
-        animatedElements.forEach(element => {
+    if (
+        "IntersectionObserver" in
+        window
+    ) {
 
-            element.style.opacity = "0";
-            element.style.transform = "translateY(25px)";
-            element.style.transition =
-                "opacity 0.7s ease, transform 0.7s ease";
+        const observer =
+            new IntersectionObserver(
+                entries => {
 
-            observer.observe(element);
+                    entries.forEach(
+                        entry => {
 
-        });
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.style.opacity =
+                                    "1";
+
+
+                                entry.target.style.transform =
+                                    "translateY(0)";
+
+
+                                observer.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold: 0.12
+                }
+            );
+
+
+        animatedElements.forEach(
+            element => {
+
+                element.style.opacity =
+                    "0";
+
+
+                element.style.transform =
+                    "translateY(25px)";
+
+
+                element.style.transition =
+                    "opacity 0.7s ease, transform 0.7s ease";
+
+
+                observer.observe(
+                    element
+                );
+
+            }
+        );
 
     }
 
@@ -583,135 +975,1149 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (bookingForm) {
 
-        bookingForm.addEventListener("submit", event => {
+        bookingForm.addEventListener(
+            "submit",
+            event => {
 
-            event.preventDefault();
-
-            const nameInput = bookingForm.querySelector(
-                'input[name="nombre"], input[name="name"]'
-            );
-
-            const serviceSelect = bookingForm.querySelector(
-                'select[name="servicio"], select[name="service"]'
-            );
-
-            const dateInput = bookingForm.querySelector(
-                'input[type="date"]'
-            );
-
-            const name = nameInput
-                ? nameInput.value.trim()
-                : "";
-
-            const service = serviceSelect
-                ? serviceSelect.value
-                : "";
-
-            const date = dateInput
-                ? dateInput.value
-                : "";
+                event.preventDefault();
 
 
-            /*
-             * Validación básica
-             */
+                const nameInput =
+                    bookingForm.querySelector(
+                        'input[name="nombre"], input[name="name"]'
+                    );
 
-            if (!name) {
 
-                alert("Por favor, ingresá tu nombre.");
+                const serviceSelect =
+                    bookingForm.querySelector(
+                        'select[name="servicio"], select[name="service"]'
+                    );
 
-                if (nameInput) {
-                    nameInput.focus();
+
+                const dateInput =
+                    bookingForm.querySelector(
+                        'input[type="date"]'
+                    );
+
+
+                const name =
+                    nameInput
+                        ? nameInput.value.trim()
+                        : "";
+
+
+                const service =
+                    serviceSelect
+                        ? serviceSelect.value
+                        : "";
+
+
+                const date =
+                    dateInput
+                        ? dateInput.value
+                        : "";
+
+
+                if (!name) {
+
+                    alert(
+                        "Por favor, ingresá tu nombre."
+                    );
+
+
+                    if (nameInput) {
+
+                        nameInput.focus();
+
+                    }
+
+
+                    return;
+
                 }
 
-                return;
+
+                if (
+                    serviceSelect &&
+                    !service
+                ) {
+
+                    alert(
+                        "Por favor, seleccioná un servicio."
+                    );
+
+
+                    serviceSelect.focus();
+
+
+                    return;
+
+                }
+
+
+                if (
+                    dateInput &&
+                    !date
+                ) {
+
+                    alert(
+                        "Por favor, seleccioná una fecha."
+                    );
+
+
+                    dateInput.focus();
+
+
+                    return;
+
+                }
+
+
+                alert(
+
+                    `¡Gracias, ${name}! 🌸\n\n` +
+
+                    `Tu solicitud de turno fue recibida.` +
+
+                    (
+                        service
+                            ? `\nServicio: ${service}`
+                            : ""
+                    ) +
+
+                    (
+                        date
+                            ? `\nFecha: ${date}`
+                            : ""
+                    )
+
+                );
+
+
+                bookingForm.reset();
+
             }
-
-
-            if (serviceSelect && !service) {
-
-                alert("Por favor, seleccioná un servicio.");
-
-                serviceSelect.focus();
-
-                return;
-            }
-
-
-            if (dateInput && !date) {
-
-                alert("Por favor, seleccioná una fecha.");
-
-                dateInput.focus();
-
-                return;
-            }
-
-
-            /*
-             * Mensaje de confirmación
-             */
-
-            alert(
-                `¡Gracias, ${name}! 🌸\n\n` +
-                `Tu solicitud de turno fue recibida.` +
-                (
-                    service
-                        ? `\nServicio: ${service}`
-                        : ""
-                ) +
-                (
-                    date
-                        ? `\nFecha: ${date}`
-                        : ""
-                )
-            );
-
-            bookingForm.reset();
-
-        });
+        );
 
     }
 
 
     /* ======================================================
-       AÑO AUTOMÁTICO DEL FOOTER
+       OPINIONES
+       SOLO 1 O 5 ESTRELLAS
     ====================================================== */
 
-    const yearElements = document.querySelectorAll(
-        "[data-year]"
-    );
+    const reviewsGrid =
+        document.querySelector(
+            ".reviews-grid"
+        );
 
-    yearElements.forEach(element => {
 
-        element.textContent = new Date().getFullYear();
-
-    });
+    const STORAGE_KEY =
+        "bloomBeautyOpiniones";
 
 
     /* ======================================================
-       PREVENIR IMÁGENES ROTAS
+       OBTENER OPINIONES
     ====================================================== */
 
-    document.querySelectorAll("img").forEach(image => {
+    function obtenerOpiniones() {
 
-        image.addEventListener("error", () => {
+        try {
 
-            /*
-             * No reemplazamos la imagen automáticamente.
-             * De esta manera podés detectar fácilmente
-             * qué archivo falta dentro de /img/.
-             */
+            const datos =
+                localStorage.getItem(
+                    STORAGE_KEY
+                );
 
-            image.classList.add("image-error");
+
+            if (!datos) {
+
+                return [];
+
+            }
+
+
+            const opiniones =
+                JSON.parse(datos);
+
+
+            if (
+                !Array.isArray(
+                    opiniones
+                )
+            ) {
+
+                return [];
+
+            }
+
+
+            return opiniones;
+
+        } catch (error) {
+
+            console.error(
+                "Error al cargar opiniones:",
+                error
+            );
+
+
+            return [];
+
+        }
+
+    }
+
+
+    /* ======================================================
+       GUARDAR OPINIONES
+    ====================================================== */
+
+    function guardarOpiniones(
+        opiniones
+    ) {
+
+        try {
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(
+                    opiniones
+                )
+            );
+
+
+            return true;
+
+        } catch (error) {
+
+            console.error(
+                "Error al guardar opiniones:",
+                error
+            );
+
+
+            return false;
+
+        }
+
+    }
+
+
+    /* ======================================================
+       MOSTRAR OPINIONES
+    ====================================================== */
+
+    function mostrarOpiniones() {
+
+        if (!reviewsGrid) {
+
+            return;
+
+        }
+
+
+        const opiniones =
+            obtenerOpiniones();
+
+
+        reviewsGrid
+            .querySelectorAll(
+                ".review-card.user-review"
+            )
+            .forEach(
+                card => {
+
+                    card.remove();
+
+                }
+            );
+
+
+        opiniones.forEach(
+            opinion => {
+
+                const rating =
+                    Number(
+                        opinion.estrellas
+                    ) === 1
+                        ? 1
+                        : 5;
+
+
+                const estrellas =
+                    rating === 1
+                        ? "★"
+                        : "★★★★★";
+
+
+                const nombre =
+                    String(
+                        opinion.nombre ||
+                        "Clienta"
+                    ).trim();
+
+
+                const texto =
+                    String(
+                        opinion.texto ||
+                        ""
+                    ).trim();
+
+
+                const inicial =
+                    nombre
+                        .charAt(0)
+                        .toUpperCase();
+
+
+                const card =
+                    document.createElement(
+                        "article"
+                    );
+
+
+                card.className =
+                    "review-card user-review";
+
+
+                card.innerHTML = `
+
+                    <div class="stars">
+                        ${estrellas}
+                    </div>
+
+                    <p>
+                        “${escapeHTML(
+                            texto
+                        )}”
+                    </p>
+
+                    <div class="review-author">
+
+                        <div class="author-avatar">
+                            ${escapeHTML(
+                                inicial
+                            )}
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                ${escapeHTML(
+                                    nombre
+                                )}
+                            </strong>
+
+                            <span>
+                                Clienta Bloom Beauty
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+
+                reviewsGrid.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ======================================================
+       CREAR SISTEMA DE OPINIONES
+    ====================================================== */
+
+    if (reviewsGrid) {
+
+        let reviewsActions =
+            document.querySelector(
+                ".reviews-actions"
+            );
+
+
+        if (!reviewsActions) {
+
+            reviewsActions =
+                document.createElement(
+                    "div"
+                );
+
+
+            reviewsActions.className =
+                "reviews-actions";
+
+
+            if (
+                reviewsGrid.parentElement
+            ) {
+
+                reviewsGrid.parentElement.appendChild(
+                    reviewsActions
+                );
+
+            }
+
+        }
+
+
+        /* ==================================================
+           BOTÓN DEJAR OPINIÓN
+        ================================================== */
+
+        let opinionButton =
+            document.getElementById(
+                "openReviewButton"
+            );
+
+
+        if (!opinionButton) {
+
+            opinionButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            opinionButton.type =
+                "button";
+
+
+            opinionButton.id =
+                "openReviewButton";
+
+
+            opinionButton.className =
+                "btn btn-primary";
+
+
+            opinionButton.innerHTML = `
+                Dejar mi opinión
+                <i class="fa-solid fa-star"></i>
+            `;
+
+
+            reviewsActions.appendChild(
+                opinionButton
+            );
+
+        }
+
+
+        /* ==================================================
+           FORMULARIO
+        ================================================== */
+
+        let reviewFormContainer =
+            document.getElementById(
+                "reviewFormContainer"
+            );
+
+
+        if (!reviewFormContainer) {
+
+            reviewFormContainer =
+                document.createElement(
+                    "div"
+                );
+
+
+            reviewFormContainer.id =
+                "reviewFormContainer";
+
+
+            reviewFormContainer.className =
+                "review-form-container";
+
+
+            reviewFormContainer.style.display =
+                "none";
+
+
+            reviewFormContainer.innerHTML = `
+
+                <div class="review-form-box">
+
+                    <button
+                        type="button"
+                        class="review-form-close"
+                        id="closeReviewButton"
+                        aria-label="Cerrar">
+
+                        <i class="fa-solid fa-xmark"></i>
+
+                    </button>
+
+
+                    <span class="section-subtitle">
+                        TU EXPERIENCIA
+                    </span>
+
+
+                    <h3>
+                        Dejá tu opinión
+                    </h3>
+
+
+                    <form id="reviewForm">
+
+
+                        <div class="form-group">
+
+                            <label for="reviewName">
+                                Tu nombre
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="reviewName"
+                                name="reviewName"
+                                placeholder="Escribí tu nombre"
+                                maxlength="40"
+                                autocomplete="name"
+                                required>
+
+                        </div>
+
+
+                        <!-- =================================
+                             VALORACIÓN
+                             SOLO 1 O 5
+                        ================================== -->
+
+                        <div class="form-group">
+
+                            <label>
+                                Tu valoración
+                            </label>
+
+
+                            <div
+                                class="review-stars-input"
+                                id="reviewStarsInput">
+
+                                <!-- OPCIÓN 1 -->
+
+                                <button
+                                    type="button"
+                                    class="rating-option"
+                                    data-star="1"
+                                    aria-label="1 estrella">
+
+                                    <span class="rating-stars">
+                                        ⭐
+                                    </span>
+
+                                    <span class="rating-text">
+                                        1 estrella
+                                    </span>
+
+                                </button>
+
+
+                                <!-- OPCIÓN 5 -->
+
+                                <button
+                                    type="button"
+                                    class="rating-option selected"
+                                    data-star="5"
+                                    aria-label="5 estrellas">
+
+                                    <span class="rating-stars">
+                                        ⭐⭐⭐⭐⭐
+                                    </span>
+
+                                    <span class="rating-text">
+                                        5 estrellas
+                                    </span>
+
+                                </button>
+
+                            </div>
+
+
+                            <input
+                                type="hidden"
+                                id="reviewRating"
+                                name="reviewRating"
+                                value="5">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="reviewText">
+                                Tu opinión
+                            </label>
+
+
+                            <textarea
+                                id="reviewText"
+                                name="reviewText"
+                                rows="5"
+                                maxlength="300"
+                                placeholder="Contanos qué te pareció tu experiencia..."
+                                required></textarea>
+
+
+                            <small>
+                                Máximo 300 caracteres.
+                            </small>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary btn-full">
+
+                            Publicar opinión
+
+                            <i class="fa-solid fa-paper-plane"></i>
+
+                        </button>
+
+
+                        <p
+                            id="reviewMessage"
+                            class="review-message">
+                        </p>
+
+
+                    </form>
+
+                </div>
+
+            `;
+
+
+            if (
+                reviewsGrid.parentElement
+            ) {
+
+                reviewsGrid.parentElement.appendChild(
+                    reviewFormContainer
+                );
+
+            }
+
+        }
+
+
+        /* ==================================================
+           ELEMENTOS DEL FORMULARIO
+        ================================================== */
+
+        const reviewForm =
+            document.getElementById(
+                "reviewForm"
+            );
+
+
+        const reviewName =
+            document.getElementById(
+                "reviewName"
+            );
+
+
+        const reviewText =
+            document.getElementById(
+                "reviewText"
+            );
+
+
+        const reviewRating =
+            document.getElementById(
+                "reviewRating"
+            );
+
+
+        const reviewMessage =
+            document.getElementById(
+                "reviewMessage"
+            );
+
+
+        const reviewStarsInput =
+            document.getElementById(
+                "reviewStarsInput"
+            );
+
+
+        const closeReviewButton =
+            document.getElementById(
+                "closeReviewButton"
+            );
+
+
+        /* ==================================================
+           ABRIR FORMULARIO
+        ================================================== */
+
+        opinionButton.addEventListener(
+            "click",
+            () => {
+
+                reviewFormContainer.style.display =
+                    "flex";
+
+
+                document.body.classList.add(
+                    "no-scroll"
+                );
+
+
+                setTimeout(() => {
+
+                    if (reviewName) {
+
+                        reviewName.focus();
+
+                    }
+
+                }, 100);
+
+            }
+        );
+
+
+        /* ==================================================
+           CERRAR FORMULARIO
+        ================================================== */
+
+        function cerrarFormularioOpinion() {
+
+            reviewFormContainer.style.display =
+                "none";
+
+
+            document.body.classList.remove(
+                "no-scroll"
+            );
+
+        }
+
+
+        if (closeReviewButton) {
+
+            closeReviewButton.addEventListener(
+                "click",
+                cerrarFormularioOpinion
+            );
+
+        }
+
+
+        reviewFormContainer.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    reviewFormContainer
+                ) {
+
+                    cerrarFormularioOpinion();
+
+                }
+
+            }
+        );
+
+
+        /* ==================================================
+           SELECCIÓN 1 O 5
+        ================================================== */
+
+        if (
+            reviewStarsInput &&
+            reviewRating
+        ) {
+
+            const ratingButtons =
+                reviewStarsInput.querySelectorAll(
+                    ".rating-option"
+                );
+
+
+            function actualizarRating(
+                cantidad
+            ) {
+
+                ratingButtons.forEach(
+                    button => {
+
+                        const valor =
+                            Number(
+                                button.dataset.star
+                            );
+
+
+                        button.classList.toggle(
+                            "selected",
+                            valor === cantidad
+                        );
+
+                    }
+                );
+
+            }
+
+
+            ratingButtons.forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            const cantidad =
+                                Number(
+                                    button.dataset.star
+                                );
+
+
+                            if (
+                                cantidad !== 1 &&
+                                cantidad !== 5
+                            ) {
+
+                                return;
+
+                            }
+
+
+                            reviewRating.value =
+                                cantidad;
+
+
+                            actualizarRating(
+                                cantidad
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+            /* 5 estrellas seleccionadas al abrir */
+
+            reviewRating.value = 5;
+
+            actualizarRating(5);
+
+        }
+
+
+        /* ==================================================
+           GUARDAR OPINIÓN
+        ================================================== */
+
+        if (reviewForm) {
+
+            reviewForm.addEventListener(
+                "submit",
+                event => {
+
+                    event.preventDefault();
+
+
+                    const nombre =
+                        reviewName
+                            ? reviewName.value.trim()
+                            : "";
+
+
+                    const texto =
+                        reviewText
+                            ? reviewText.value.trim()
+                            : "";
+
+
+                    let estrellas =
+                        reviewRating
+                            ? Number(
+                                reviewRating.value
+                            )
+                            : 5;
+
+
+                    /*
+                     * Solo aceptamos 1 o 5.
+                     */
+
+                    if (
+                        estrellas !== 1 &&
+                        estrellas !== 5
+                    ) {
+
+                        estrellas = 5;
+
+                    }
+
+
+                    if (!nombre) {
+
+                        if (reviewName) {
+
+                            reviewName.focus();
+
+                        }
+
+                        return;
+
+                    }
+
+
+                    if (!texto) {
+
+                        if (reviewText) {
+
+                            reviewText.focus();
+
+                        }
+
+                        return;
+
+                    }
+
+
+                    const opiniones =
+                        obtenerOpiniones();
+
+
+                    opiniones.push({
+
+                        id:
+                            Date.now(),
+
+                        nombre:
+                            nombre,
+
+                        texto:
+                            texto,
+
+                        estrellas:
+                            estrellas,
+
+                        fecha:
+                            new Date()
+                                .toISOString()
+
+                    });
+
+
+                    const guardado =
+                        guardarOpiniones(
+                            opiniones
+                        );
+
+
+                    if (!guardado) {
+
+                        if (reviewMessage) {
+
+                            reviewMessage.textContent =
+                                "No se pudo guardar la opinión.";
+
+                        }
+
+                        return;
+
+                    }
+
+
+                    mostrarOpiniones();
+
+
+                    reviewForm.reset();
+
+
+                    /*
+                     * Volver a 5 estrellas
+                     */
+
+                    if (reviewRating) {
+
+                        reviewRating.value =
+                            5;
+
+                    }
+
+
+                    if (reviewStarsInput) {
+
+                        reviewStarsInput
+                            .querySelectorAll(
+                                ".rating-option"
+                            )
+                            .forEach(
+                                button => {
+
+                                    button.classList.toggle(
+                                        "selected",
+                                        Number(
+                                            button.dataset.star
+                                        ) === 5
+                                    );
+
+                                }
+                            );
+
+                    }
+
+
+                    if (reviewMessage) {
+
+                        reviewMessage.textContent =
+                            "¡Gracias por tu opinión! 💖";
+
+
+                        reviewMessage.classList.add(
+                            "success"
+                        );
+
+                    }
+
+
+                    setTimeout(
+                        () => {
+
+                            cerrarFormularioOpinion();
+
+
+                            if (reviewMessage) {
+
+                                reviewMessage.textContent =
+                                    "";
+
+                                reviewMessage.classList.remove(
+                                    "success"
+                                );
+
+                            }
+
+                        },
+                        1500
+                    );
+
+                }
+            );
+
+        }
+
+    }
+
+
+    /* ======================================================
+       CARGAR OPINIONES
+    ====================================================== */
+
+    mostrarOpiniones();
+
+
+    /* ======================================================
+       WHATSAPP
+    ====================================================== */
+
+    const whatsappNumber =
+        "543816253661";
+
+
+    document
+        .querySelectorAll(
+            "[data-whatsapp]"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                event => {
+
+                    event.preventDefault();
+
+
+                    const servicio =
+                        button.dataset.servicio ||
+                        "un servicio";
+
+
+                    const mensaje =
+                        `Hola Bloom Beauty 💖, quiero consultar por ${servicio}.`;
+
+
+                    const url =
+                        `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                            mensaje
+                        )}`;
+
+
+                    window.open(
+                        url,
+                        "_blank"
+                    );
+
+                }
+            );
 
         });
 
-    });
+
+    /* ======================================================
+       AÑO AUTOMÁTICO
+    ====================================================== */
+
+    const yearElements =
+        document.querySelectorAll(
+            "[data-year]"
+        );
+
+
+    yearElements.forEach(
+        element => {
+
+            element.textContent =
+                new Date().getFullYear();
+
+        }
+    );
 
 
     /* ======================================================
-       LOG DE INICIO
+       IMÁGENES ROTAS
+    ====================================================== */
+
+    document
+        .querySelectorAll("img")
+        .forEach(image => {
+
+            image.addEventListener(
+                "error",
+                () => {
+
+                    image.classList.add(
+                        "image-error"
+                    );
+
+                }
+            );
+
+        });
+
+
+    /* ======================================================
+       INICIO
     ====================================================== */
 
     console.log(
@@ -720,3 +2126,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 ```
+
